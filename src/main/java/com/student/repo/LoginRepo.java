@@ -10,4 +10,6 @@ public interface LoginRepo extends JpaRepository<Login, Integer> {
 
 	Optional<Login> findByUsername(String username);
 
+	boolean existsByUsername(String username);
+
 }

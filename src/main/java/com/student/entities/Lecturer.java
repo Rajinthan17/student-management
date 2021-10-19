@@ -27,7 +27,7 @@ public class Lecturer {
 	
 	@OneToOne()
 	@JoinColumn(name = "course_id", referencedColumnName = "id")
-	private Course Course;
+	private Course course;
 	
 	@OneToOne()
 	@JoinColumn(name = "login_id", referencedColumnName = "id")
@@ -38,11 +38,11 @@ public class Lecturer {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Lecturer(String name, String educationDetail, com.student.entities.Course course, Login loginId) {
+	public Lecturer(String name, String educationDetail, Course course, Login loginId) {
 		super();
 		this.name = name;
 		this.educationDetail = educationDetail;
-		Course = course;
+		this.course = course;
 		this.loginId = loginId;
 	}
 
@@ -71,11 +71,11 @@ public class Lecturer {
 	}
 
 	public Course getCourse() {
-		return Course;
+		return course;
 	}
 
 	public void setCourse(Course course) {
-		Course = course;
+		this.course = course;
 	}
 
 	public Login getLoginId() {
