@@ -62,6 +62,18 @@ public class LoginController {
 		return loginService.registerStudent(signUpRequest);
 	}
 	
+	@PostMapping("/signup/admin")
+	public ResponseEntity<?> registerAdmin( @RequestBody SignupRequest signUpRequest) {
+		
+		if (loginRepo.existsByUsername(signUpRequest.getUsername())) {
+			return ResponseEntity.badRequest()
+					.body(new MessageResponse("Error: Username is already taken!"));
+		}
+
+		
+		return loginService.registerAdmin(signUpRequest);
+	}
+	
 	
 	@PostMapping("/signin")
 	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {

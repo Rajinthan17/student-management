@@ -17,11 +17,13 @@ import com.student.RequestBody.SignupRequest;
 import com.student.ResponseBody.BasicAuthResponse;
 import com.student.ResponseBody.MessageResponse;
 import com.student.config.BasicAuthUtils;
+import com.student.entities.Admin;
 import com.student.entities.Course;
 import com.student.entities.Lecturer;
 import com.student.entities.Login;
 import com.student.entities.Student;
 import com.student.entities.User;
+import com.student.repo.AdminRepo;
 import com.student.repo.CourseRepo;
 import com.student.repo.LecturerRepo;
 import com.student.repo.LoginRepo;
@@ -45,6 +47,9 @@ public class LoginService {
 	
 	@Autowired
 	CourseRepo courseRepo;
+	
+	@Autowired
+	AdminRepo adminRepo;
 	
 	@Autowired
 	private PasswordEncoder encoder;
@@ -98,6 +103,16 @@ public class LoginService {
 		studentRepo.save(student);
 		return ResponseEntity.ok(new MessageResponse("Student registered successfully!"));
 	}
+	
+	public ResponseEntity<?> registerAdmin(SignupRequest signUpRequest) {
+		Login login = new Login(signUpRequest.getUsername(),encoder.encode(signUpRequest.getPassword()),"ADMIN");
+		loginRepo.save(login);
+		
+		Admin admin = new Admin(signUpRequest.getName(),login);
+	
+		adminRepo.save(admin);
+		return ResponseEntity.ok(new MessageResponse("Admin registered successfully!"));
+	}
 
 	public ResponseEntity<?> signin(LoginRequest loginRequest) {
 		Authentication authentication = authenticationManager.authenticate(
@@ -141,5 +156,7 @@ public class LoginService {
 		return ResponseEntity.badRequest()
 				.body(new MessageResponse("Error: Data not found!"));
 	}
+
+	
 
 }

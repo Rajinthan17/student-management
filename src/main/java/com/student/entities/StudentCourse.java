@@ -22,7 +22,7 @@ public class StudentCourse {
 	
 	@OneToOne()
 	@JoinColumn(name = "course_id", referencedColumnName = "id")
-	private Course Course;
+	private Course course;
 	
 	@OneToOne()
 	@JoinColumn(name = "student_id", referencedColumnName = "id")
@@ -35,7 +35,7 @@ public class StudentCourse {
 
 	public StudentCourse(com.student.entities.Course course, Student student) {
 		super();
-		Course = course;
+		this.course = course;
 		this.student = student;
 	}
 
@@ -48,11 +48,11 @@ public class StudentCourse {
 	}
 
 	public Course getCourse() {
-		return Course;
+		return course;
 	}
 
 	public void setCourse(Course course) {
-		Course = course;
+		this.course = course;
 	}
 
 	public Student getStudent() {
